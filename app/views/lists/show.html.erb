@@ -1,8 +1,22 @@
 <h1><%= @list.name %></h1>
+<div class="d-flex align-content-start flex-wrap">
+  <div class="d-flex flex-wrap">
+    <div class="card" style="width: 18rem;">
+      <% @list.bookmarks.each do |bookmark| %>
+      <img class="card-img-top" src="<%= bookmark.movie.poster_url %>" alt="Card image cap">
+      <div class="card" style="width: 18rem;">
+        <div class="card-body">
+         <h5 class="card-title"><%= bookmark.movie.title %></h5>
+         <h6 class="card-subtitle mb-2 text-muted">comment</h6>
+         <p class="card-text"><%= bookmark.comment  %></p>
+         <p class="card-text"><%= bookmark.movie.rating %></p>
+          <%= link_to "delete", bookmark_path(bookmark), class: "btn btn-primary", data: { turbo_method: :delete, turbo_confirm: "Are you sure ?"} %>
+        </div>
+     </div>
+     <% end %>
+    </div>
+  </div>
+</div>
 
-<p>Details about the list:</p>
-<% @list.bookmarks.each do |bookmark| %>
-<%= bookmark  %>
-<% end %>
-<%= link_to 'Back to all lists', lists_path %>
-<%= link_to 'Add a bookmark', new_list_bookmark_path(@list) %>
+<%= link_to 'Back to all lists', lists_path, class: "btn btn-primary"%>
+<%= link_to 'Add a bookmark', new_list_bookmark_path(@list), class: "btn btn-primary"%>
